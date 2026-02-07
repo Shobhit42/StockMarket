@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace StockMarket.NewFolder
+namespace StockMarket.Models
 {
     public class Stock
     {

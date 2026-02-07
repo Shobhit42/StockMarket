@@ -1,4 +1,4 @@
-﻿namespace StockMarket.NewFolder
+﻿namespace StockMarket.Models
 {
     public class Comments
     {
