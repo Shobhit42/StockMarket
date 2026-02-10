@@ -6,5 +6,6 @@ namespace StockMarket.Interfaces
     {
         Task<List<Comments>> GetCommentsAsync();
         Task<Comments?> GetByIdAsync(int id);
+        Task<Comments> CreateCommentAsync(Comments comment);
     }
 }

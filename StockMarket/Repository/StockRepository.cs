@@ -54,5 +54,10 @@ namespace StockMarket.Repository
             return stock;
 
         }
+
+        public Task<bool> StockExists(int id)
+        {
+            return _context.Stocks.AnyAsync(x => x.Id == id);
+        }
     }
 }

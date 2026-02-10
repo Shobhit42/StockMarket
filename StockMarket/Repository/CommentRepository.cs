@@ -13,6 +13,13 @@ namespace StockMarket.Repository
             _context = applicationDbContext;
         }
 
+        public async Task<Comments> CreateCommentAsync(Comments comment)
+        {
+            await _context.Comments.AddAsync(comment);
+            await _context.SaveChangesAsync();
+            return comment;
+        }
+
         public async Task<Comments?> GetByIdAsync(int id)
         {
             return await _context.Comments.FindAsync(id);
