@@ -27,5 +27,14 @@ namespace StockMarket.Mappers
             };
         }
 
+        public static Comments ToCommentFromUpdate(this UpdateCommentRequestDtos commentDto)
+        {
+            return new Comments
+            {
+                Title = commentDto.Title,
+                Content = commentDto.Content
+            };
+        }
+
     }
 }

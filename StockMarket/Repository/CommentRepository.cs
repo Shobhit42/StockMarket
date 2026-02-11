@@ -20,6 +20,15 @@ namespace StockMarket.Repository
             return comment;
         }
 
+        public async Task<Comments?> DeleteCommentAsync(int id)
+        {
+            var comment = await _context.Comments.FirstOrDefaultAsync(x => x.ID == id);
+            if (comment == null) return null;
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync(true);
+            return comment;
+        }
+
         public async Task<Comments?> GetByIdAsync(int id)
         {
             return await _context.Comments.FindAsync(id);
@@ -28,6 +37,18 @@ namespace StockMarket.Repository
         public async Task<List<Comments>> GetCommentsAsync()
         {
             return await _context.Comments.ToListAsync();
+        }
+
+        public async Task<Comments?> UpdateCommentAsync(int id, Comments commentModel)
+        {
+            var comment = await _context.Comments.FindAsync(id);
+            if (comment == null) return null;
+
+            comment.Title = commentModel.Title;
+            comment.Content = commentModel.Content;
+            await _context.SaveChangesAsync();
+            return comment;
+
         }
     }
 }

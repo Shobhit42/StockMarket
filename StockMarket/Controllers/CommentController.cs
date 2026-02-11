@@ -39,12 +39,32 @@ namespace StockMarket.Controllers
         [Route("{stokId}")]
         public async Task<IActionResult> CreateComment([FromRoute] int stokId, [FromBody] CreateCommentDto createCommentDto)
         {
-            if(!await _stockRepository.StockExists(stokId))
+            if (!await _stockRepository.StockExists(stokId))
                 return BadRequest("Stock does not exxists");
 
             var commentModel = createCommentDto.ToCommentFromCreate(stokId);
             await _commentRepository.CreateCommentAsync(commentModel);
-            return CreatedAtAction(nameof(GetCommentsById), new { id = commentModel.ID},  commentModel.ToCommentDto());
+            return CreatedAtAction(nameof(GetCommentsById), new { id = commentModel.ID }, commentModel.ToCommentDto());
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentRequestDtos updateCommentRequestDtos)
+        {
+            var commentModel = updateCommentRequestDtos.ToCommentFromUpdate();
+            var comment = await _commentRepository.UpdateCommentAsync(id, commentModel);
+            if (comment == null) return NotFound();
+            return Ok(comment.ToCommentDto());
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteComment([FromRoute] int id)
+        {
+            var commnetModel = await _commentRepository.DeleteCommentAsync(id);
+            if(commnetModel == null) return NotFound();
+            return Ok(commnetModel.ToCommentDto());
+        }
+
     }
 }
