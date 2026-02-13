@@ -35,7 +35,9 @@ namespace StockMarket.Repository
                 }
             }
 
-            return await stocks.ToListAsync();
+            var offSet = (query.PageNumber - 1) * query.Limit;
+
+            return await stocks.Skip(offSet).Take(query.Limit).ToListAsync();
         }
 
         public async Task<Stock?> GetByIdAsync(int id)
