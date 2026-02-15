@@ -2,6 +2,7 @@
 
 namespace StockMarket.Models
 {
+    [Table("Stock")]
     public class Stock
     {
         public int Id { get; set; }
@@ -14,5 +15,7 @@ namespace StockMarket.Models
         public string Industry { get; set; } = string.Empty;
         public long MarketCap { get; set; }
         public List<Comments> Comments { get; set; } = new List<Comments>();
+
+        public List<Portfolio> Portfolio { get; set; } = new List<Portfolio>();
     }
 }

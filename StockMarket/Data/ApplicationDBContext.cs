@@ -13,9 +13,15 @@ namespace StockMarket.Data
 
         public DbSet<Stock> Stocks {get; set;}
         public DbSet<Comments> Comments {get; set;}
+        public DbSet<Portfolio> Portfolio { get; set;} 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Portfolio>(p => p.HasKey(p => new { p.AppUserId, p.StockId }));
+            modelBuilder.Entity<Portfolio>().HasOne(u => u.AppUser).WithMany(u => u.portfolios).HasForeignKey(p => p.AppUserId);
+            modelBuilder.Entity<Portfolio>().HasOne(u => u.Stock).WithMany(u => u.Portfolio).HasForeignKey(p => p.StockId);
+
             List<IdentityRole> roles = new List<IdentityRole>
             {
                 new IdentityRole
