@@ -7,7 +7,8 @@ namespace StockMarket.Interfaces
     public interface IStockRepository
     {
         Task<List<Stock>> GetAllAsync(QueryObject query);
-        Task<Stock?> GetByIdAsync(int id);
+        Task<Stock?> GetByIdAsync(int id); 
+        Task<Stock?> GetBySymbol(string symbol);
         Task<Stock> CreateStockAsync(Stock stock);
         Task<Stock?> UpdateStockAsync(int id, UpdateStockRequestDto updateStock);
         Task<Stock?> DeleteStockAsync(int id);

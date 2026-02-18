@@ -81,5 +81,10 @@ namespace StockMarket.Repository
         {
             return _context.Stocks.AnyAsync(x => x.Id == id);
         }
+
+        public Task<Stock?> GetBySymbol(string symbol)
+        {
+            return _context.Stocks.FirstOrDefaultAsync(x => x.Symbol == symbol);
+        }
     }
 }
