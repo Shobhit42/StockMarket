@@ -89,7 +89,9 @@ namespace StockMarket.Controllers
             var userPortfolio = await _portfolioRepository.GetUserPortfolio(user);
             if (userPortfolio.Any(x => x.Symbol.ToLower() != symbol.ToLower())) return BadRequest("cannot find stokc with this symbol");
 
-            await _stockRepository.
+            var delPortfolio = await _portfolioRepository.DeletePortfolio(user, symbol);
+            return Ok(delPortfolio);
+
         }
 
     }

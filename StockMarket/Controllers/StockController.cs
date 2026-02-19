@@ -24,7 +24,8 @@ namespace StockMarket.Controllers
         public async Task<IActionResult> GetAllStocks([FromQuery] QueryObject query)
         {
             var stocks = await _stockRepository.GetAllAsync(query);
-            return Ok(stocks);
+            var stockDto = stocks.Select(s => s.ToStockDto()).ToList();
+            return Ok(stockDto);
         }
 
         [HttpGet("{id:int}")]

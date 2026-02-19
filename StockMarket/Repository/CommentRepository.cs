@@ -36,12 +36,12 @@ namespace StockMarket.Repository
 
         public async Task<List<Comments>> GetCommentsAsync()
         {
-            return await _context.Comments.ToListAsync();
+            return await _context.Comments.Include(a => a.AppUser).ToListAsync();
         }
 
         public async Task<Comments?> UpdateCommentAsync(int id, Comments commentModel)
         {
-            var comment = await _context.Comments.FindAsync(id);
+            var comment = await _context.Comments.Include(a => a.AppUser).FirstOrDefaultAsync(x => x.ID == id);
             if (comment == null) return null;
 
             comment.Title = commentModel.Title;

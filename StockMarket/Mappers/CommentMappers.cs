@@ -13,6 +13,7 @@ namespace StockMarket.Mappers
                 Title = comments.Title,
                 Content = comments.Content,
                 CreatedOn = comments.CreatedOn,
+                CreatedBy = comments.AppUser.UserName,
                 StockID = comments.StockID
             };
         }
